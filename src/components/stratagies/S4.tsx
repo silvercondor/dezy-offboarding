@@ -11,26 +11,11 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 import { sendTransaction } from "viem/dist/types/actions/wallet/sendTransaction";
 import { parseEther } from "viem";
 
-type UserProxy = {
-  proxy: Address;
-};
-type NftDataType = {
-  data: [Address, Address, BigInt];
-};
 
 export function S4(props: any) {
   const poolAddress: Address = props.poolAddress;
-  const poolName: String = props.poolName;
-  console.log(poolAddress);
-  // const [proxy, setProxy] = useState<UserProxy>({proxy:"0x0000000000000000000000000000000000000000"});
+  const poolName: String = props.poolName;    
   const { address } = useAccount();
-
-  // async function withdrawS4():<WithdrawS4Type>{
-  //   const {hash} = await writeContract({
-  //     to:dezyS4.address,
-
-  // })
-  // }
 
   // send transction
   const { write, data, error, isLoading, isError } = useContractWrite({
@@ -60,7 +45,7 @@ export function S4(props: any) {
     ],
   });
   // get nftId
-  const nftData = useContractRead({
+  const nftData:any = useContractRead({
     ...dezyS4,
     functionName: "getV3PositionNft",
     args: [
@@ -68,24 +53,18 @@ export function S4(props: any) {
       poolData.data?.[0].result,
       poolData.data?.[1].result,
       poolData.data?.[2].result,
-    ],
+    ]
   });
   // const nftId = nftData.data?.[3]
   console.log("useS4", poolData, nftData);
   return (
-    <Box>    
+    <Box style={{display:nftData.data?.[2].toString()==="0"?"none":"true"}}>    
       {/* <div>Data:</div> */}
       {poolData.isLoading && nftData.isLoading && <div>loading...</div>}
       {poolData.isSuccess && nftData.isSuccess && (
         <Grid container direction="row" columns={2} justifyContent={"space-around"} alignItems={'flex-start'}>
           <Grid item>
             <Typography>{poolName}</Typography>
-            {/* {JSON.stringify({
-              token0: poolData.data?.[0].result || "0x0000000000000000000000000000000000000000",
-              token1: poolData.data?.[1].result || "0x0000000000000000000000000000000000000000",
-              fee: poolData.data?.[2].result || "0",
-              nftId: nftData.data?.[2].toString() || "0"
-            })} */}
           </Grid>
           <Grid item>
             <Button
