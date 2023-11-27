@@ -58,7 +58,7 @@ export function S4(props: any) {
   // const nftId = nftData.data?.[3]
   console.log("useS4", poolData, nftData);
   return (
-    <Box style={{display:nftData.data?.[2].toString()==="0"?"none":"true"}}>    
+    <Box style={{display:poolData.isSuccess && nftData.data?.[2].toString()==="0"?"none":"true"}}>    
       {/* <div>Data:</div> */}
       {poolData.isLoading && nftData.isLoading && <div>loading...</div>}
       {poolData.isSuccess && nftData.isSuccess && (
