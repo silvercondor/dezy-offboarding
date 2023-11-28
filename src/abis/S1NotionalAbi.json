@@ -1,0 +1,973 @@
+[
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_feesAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_uniswapConnector",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_wethAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_notionalProxy",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "_depositor",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "_token",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "_yieldCurrency",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "_amountIn",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "_amountOut",
+                "type": "uint256"
+            }
+        ],
+        "name": "Deposit",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "previousOwner",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "newOwner",
+                "type": "address"
+            }
+        ],
+        "name": "OwnershipTransferred",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "_depositor",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "_proxy",
+                "type": "address"
+            }
+        ],
+        "name": "ProxyCreation",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "_depositor",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "_yieldCurrency",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint88",
+                "name": "_amount",
+                "type": "uint88"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint8",
+                "name": "_ethMarketIndex",
+                "type": "uint8"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "_maturity",
+                "type": "uint256"
+            }
+        ],
+        "name": "RollToNewMaturity",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "_depositor",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "_token",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "_yieldCurrency",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "_amount",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "_fee",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "bool",
+                "name": "_beforeMaturityDate",
+                "type": "bool"
+            }
+        ],
+        "name": "Withdraw",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_yieldCurrency",
+                "type": "address"
+            },
+            {
+                "internalType": "uint8",
+                "name": "_yieldCurrencyId",
+                "type": "uint8"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_amountOutMin",
+                "type": "uint256"
+            },
+            {
+                "internalType": "enum INotionalFinance.DepositActionType",
+                "name": "_actionType",
+                "type": "uint8"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_maturity",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint32",
+                "name": "_minLendRate",
+                "type": "uint32"
+            }
+        ],
+        "name": "depositETH",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_yieldCurrency",
+                "type": "address"
+            },
+            {
+                "internalType": "uint8",
+                "name": "_yieldCurrencyId",
+                "type": "uint8"
+            },
+            {
+                "internalType": "address",
+                "name": "_token",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_amount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_amountOutMin",
+                "type": "uint256"
+            },
+            {
+                "internalType": "enum INotionalFinance.DepositActionType",
+                "name": "_actionType",
+                "type": "uint8"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_maturity",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint32",
+                "name": "_minLendRate",
+                "type": "uint32"
+            }
+        ],
+        "name": "depositToken",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "depositors",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "enableEarlyWithdraw",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "enableRollToNewMaturity",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "feesAddress",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_address",
+                "type": "address"
+            },
+            {
+                "internalType": "uint8",
+                "name": "_yieldCurrencyId",
+                "type": "uint8"
+            }
+        ],
+        "name": "getAccountBalance",
+        "outputs": [
+            {
+                "internalType": "int256",
+                "name": "",
+                "type": "int256"
+            },
+            {
+                "internalType": "int256",
+                "name": "",
+                "type": "int256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_address",
+                "type": "address"
+            }
+        ],
+        "name": "getAccountPortfolio",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "currencyId",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "maturity",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "assetType",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "int256",
+                        "name": "notional",
+                        "type": "int256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "storageSlot",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "enum INotionalFinance.AssetStorageState",
+                        "name": "storageState",
+                        "type": "uint8"
+                    }
+                ],
+                "internalType": "struct INotionalFinance.PortfolioAsset[]",
+                "name": "",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint16",
+                "name": "currencyId",
+                "type": "uint16"
+            }
+        ],
+        "name": "getActiveMarkets",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "bytes32",
+                        "name": "storageSlot",
+                        "type": "bytes32"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "maturity",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "int256",
+                        "name": "totalfCash",
+                        "type": "int256"
+                    },
+                    {
+                        "internalType": "int256",
+                        "name": "totalAssetCash",
+                        "type": "int256"
+                    },
+                    {
+                        "internalType": "int256",
+                        "name": "totalLiquidity",
+                        "type": "int256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "lastImpliedRate",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "oracleRate",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "previousTradeTime",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct INotionalFinance.MarketParameters[]",
+                "name": "",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint16",
+                "name": "currencyId",
+                "type": "uint16"
+            },
+            {
+                "internalType": "int88",
+                "name": "fCashAmount",
+                "type": "int88"
+            },
+            {
+                "internalType": "uint256",
+                "name": "marketIndex",
+                "type": "uint256"
+            }
+        ],
+        "name": "getCashAmountGivenfCashAmount",
+        "outputs": [
+            {
+                "internalType": "int256",
+                "name": "",
+                "type": "int256"
+            },
+            {
+                "internalType": "int256",
+                "name": "",
+                "type": "int256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint16",
+                "name": "currencyId",
+                "type": "uint16"
+            },
+            {
+                "internalType": "uint256",
+                "name": "maturity",
+                "type": "uint256"
+            },
+            {
+                "internalType": "int256",
+                "name": "notional",
+                "type": "int256"
+            },
+            {
+                "internalType": "bool",
+                "name": "riskAdjusted",
+                "type": "bool"
+            }
+        ],
+        "name": "getPresentfCashValue",
+        "outputs": [
+            {
+                "internalType": "int256",
+                "name": "presentValue",
+                "type": "int256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "account",
+                "type": "address"
+            },
+            {
+                "internalType": "uint16",
+                "name": "currencyId",
+                "type": "uint16"
+            },
+            {
+                "internalType": "uint256",
+                "name": "maturity",
+                "type": "uint256"
+            }
+        ],
+        "name": "getfCashNotional",
+        "outputs": [
+            {
+                "internalType": "int256",
+                "name": "",
+                "type": "int256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint8",
+                "name": "_yieldCurrencyId",
+                "type": "uint8"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_amount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "enum INotionalFinance.DepositActionType",
+                "name": "_actionType",
+                "type": "uint8"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_maturity",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint32",
+                "name": "_minLendRate",
+                "type": "uint32"
+            }
+        ],
+        "name": "lendMaturedBalance",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "notionalProxy",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "renounceOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_yieldCurrency",
+                "type": "address"
+            },
+            {
+                "internalType": "uint8",
+                "name": "_yieldCurrencyId",
+                "type": "uint8"
+            },
+            {
+                "internalType": "uint88",
+                "name": "_amount",
+                "type": "uint88"
+            },
+            {
+                "internalType": "uint8",
+                "name": "_ethMarketIndex",
+                "type": "uint8"
+            },
+            {
+                "internalType": "uint32",
+                "name": "_maxImpliedRate",
+                "type": "uint32"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_maturity",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint32",
+                "name": "_minLendRate",
+                "type": "uint32"
+            }
+        ],
+        "name": "rollToNewMaturity",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "bool",
+                "name": "_bool",
+                "type": "bool"
+            }
+        ],
+        "name": "setEarlyWithdraw",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "bool",
+                "name": "_bool",
+                "type": "bool"
+            }
+        ],
+        "name": "setRollToNewMaturity",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "strategyIndex",
+        "outputs": [
+            {
+                "internalType": "uint8",
+                "name": "",
+                "type": "uint8"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "newOwner",
+                "type": "address"
+            }
+        ],
+        "name": "transferOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "uniswapConnector",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "wethAddress",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_yieldCurrency",
+                "type": "address"
+            },
+            {
+                "internalType": "uint8",
+                "name": "_yieldCurrencyId",
+                "type": "uint8"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_amount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_amountOutMin",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "_feeToken",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_withdrawAmountInternalPrecision",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "_withdrawEntireCashBalance",
+                "type": "bool"
+            },
+            {
+                "internalType": "bool",
+                "name": "_redeemToUnderlying",
+                "type": "bool"
+            },
+            {
+                "internalType": "enum INotionalFinance.DepositActionType",
+                "name": "_actionType",
+                "type": "uint8"
+            }
+        ],
+        "name": "withdrawETH",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_yieldCurrency",
+                "type": "address"
+            },
+            {
+                "internalType": "uint8",
+                "name": "_yieldCurrencyId",
+                "type": "uint8"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_amount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_amountOutMin",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "_feeToken",
+                "type": "address"
+            },
+            {
+                "internalType": "enum INotionalFinance.DepositActionType",
+                "name": "_actionType",
+                "type": "uint8"
+            },
+            {
+                "internalType": "uint8",
+                "name": "_ethMarketIndex",
+                "type": "uint8"
+            },
+            {
+                "internalType": "uint32",
+                "name": "_maxImpliedRate",
+                "type": "uint32"
+            }
+        ],
+        "name": "withdrawETHBeforeMaturityDate",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_yieldCurrency",
+                "type": "address"
+            },
+            {
+                "internalType": "uint8",
+                "name": "_yieldCurrencyId",
+                "type": "uint8"
+            },
+            {
+                "internalType": "address",
+                "name": "_token",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_amount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_amountOutMin",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "_feeToken",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_withdrawAmountInternalPrecision",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "_withdrawEntireCashBalance",
+                "type": "bool"
+            },
+            {
+                "internalType": "bool",
+                "name": "_redeemToUnderlying",
+                "type": "bool"
+            },
+            {
+                "internalType": "enum INotionalFinance.DepositActionType",
+                "name": "_actionType",
+                "type": "uint8"
+            }
+        ],
+        "name": "withdrawToken",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_yieldCurrency",
+                "type": "address"
+            },
+            {
+                "internalType": "uint8",
+                "name": "_yieldCurrencyId",
+                "type": "uint8"
+            },
+            {
+                "internalType": "address",
+                "name": "_token",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_amount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_amountOutMin",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "_feeToken",
+                "type": "address"
+            },
+            {
+                "internalType": "enum INotionalFinance.DepositActionType",
+                "name": "_actionType",
+                "type": "uint8"
+            },
+            {
+                "internalType": "uint8",
+                "name": "_ethMarketIndex",
+                "type": "uint8"
+            },
+            {
+                "internalType": "uint32",
+                "name": "_maxImpliedRate",
+                "type": "uint32"
+            }
+        ],
+        "name": "withdrawTokenBeforeMaturityDate",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "stateMutability": "payable",
+        "type": "receive"
+    }
+]

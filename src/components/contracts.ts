@@ -5,6 +5,7 @@ import S4Abi from '../abis/S4ABI.json'
 import S4CalcAbi from '../abis/S4CalcABI.json'
 import S9Abi from '../abis/S9ABI.json'
 import DcaAbi from '../abis/DcaAbi.json'
+import S1NotionalAbi from "../abis/S1NotionalAbi.json"
 import UniswapV3PoolAbi from '../abis/UniswapV3Pool.json'
 
 export const wagmiContractConfig = {
@@ -218,6 +219,10 @@ export const usdcContractConfig = {
 export const dezyS1 = {
   address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
   abi: JSON.parse(JSON.stringify(S1Abi)),
+} as const
+export const dezyS1NotionalLend = {
+  address: '0xb05C3AB03a9c81Ba18a7174c474494d34F313892',
+  abi: JSON.parse(JSON.stringify(S1NotionalAbi)),
 } as const
 export const dezyS3 = {
   address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
