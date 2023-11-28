@@ -39,9 +39,12 @@ export function App() {
 
         {isConnected && chain?.id == 1 ? (
           <Box sx={{margin:"0% 8%"}}>
+            <h2>Keep It Simple</h2>
+            You will receive the same tokens to your wallet
             <br/>
-            <hr/>
-            <h2>S1</h2>
+            <br/>
+            <br/>
+            <br/>
             <Grid container direction="column" spacing={3}>
               <Grid item>
                 <S1 />
@@ -49,7 +52,12 @@ export function App() {
             </Grid>
             <br/>
             <hr/>
-            <h2>S4</h2>
+            <h2>{"Fuel the market"}</h2>
+            You will receive your uniswap NFT in your wallet, please proceed to https://app.uniswap.org/pools to manage your position
+            <br/>
+            <br/>
+            <br/>
+            <br/>
             <Grid container direction="column" spacing={3}>
               <Grid item>
                 <S4
