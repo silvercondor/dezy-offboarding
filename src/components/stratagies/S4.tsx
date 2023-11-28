@@ -8,14 +8,10 @@ import {
 } from "wagmi";
 import { dezyS4, uniswapV3Pool } from "../contracts";
 import { Box, Button, Grid, Typography } from "@mui/material";
-import { sendTransaction } from "viem/dist/types/actions/wallet/sendTransaction";
-import { parseEther } from "viem";
-import { FamilyRestroomRounded } from "@mui/icons-material";
-
 
 export function S4(props: any) {
   const poolAddress: Address = props.poolAddress;
-  const poolName: String = props.poolName;    
+  const poolName: String = props.poolName;
   const { address } = useAccount();
 
   // send transction
@@ -46,7 +42,7 @@ export function S4(props: any) {
     ],
   });
   // get nftId
-  const nftData:any = useContractRead({
+  const nftData: any = useContractRead({
     ...dezyS4,
     functionName: "getV3PositionNft",
     args: [
@@ -54,23 +50,33 @@ export function S4(props: any) {
       poolData.data?.[0].result,
       poolData.data?.[1].result,
       poolData.data?.[2].result,
-    ]
+    ],
   });
   // const nftId = nftData.data?.[3]
   console.log("useS4", poolData, nftData);
   return (
-    <Box >    
+    <Box>
       {/* <div>Data:</div> */}
       {poolData.isLoading && nftData.isLoading && <div>loading...</div>}
       {poolData.isSuccess && nftData.isSuccess && (
-        <Grid container direction="row" columns={2} justifyContent={"space-around"} alignItems={'flex-start'}>
+        <Grid
+          container
+          direction="row"
+          columns={2}
+          justifyContent={"space-around"}
+          alignItems={"flex-start"}
+        >
           <Grid item>
             <Typography>{poolName}</Typography>
           </Grid>
           <Grid item>
             <Button
-            variant='contained'
-            disabled={poolData.isSuccess && nftData.data?.[2].toString()==="0"?true:false}
+              variant="contained"
+              disabled={
+                poolData.isSuccess && nftData.data?.[2].toString() === "0"
+                  ? true
+                  : false
+              }
               onClick={() => {
                 write({
                   args: [
@@ -89,13 +95,4 @@ export function S4(props: any) {
       )}
     </Box>
   );
-  // return (
-  //   <div>
-  //     <div>Data:</div>
-  //     {isLoading && <div>loading...</div>}
-  //     {isSuccess &&
-  //       data?.map((data) => <pre key={stringify(data)}>{stringify(data)}</pre>)}
-  //   </div>
-  // )
-  // return {token0:poolData.data?.[0].result, token1:poolData.data?.[1].result, fee:poolData.data?.[2].result, nftId:nftId}
 }
