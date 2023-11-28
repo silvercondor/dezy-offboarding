@@ -63,7 +63,7 @@ export function S4(props: any) {
           container
           direction="row"
           columns={2}
-          justifyContent={"space-around"}
+          justifyContent={"space-between"}
           alignItems={"flex-start"}
         >
           <Grid item>
