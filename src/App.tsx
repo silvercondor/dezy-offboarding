@@ -39,8 +39,8 @@ export function App() {
 
         {isConnected && chain?.id == 1 ? (
           <Box sx={{margin:"0% 8%"}}>
-            <h2>Keep It Simple</h2>
-            You will receive the same tokens to your wallet
+            <h2>Fixed Deposit </h2>
+            {"assets will be sent to your address"}
             <br/>
             <br/>
             <br/>
@@ -53,7 +53,7 @@ export function App() {
             <br/>
             <hr/>
             <h2>{"Fuel the market"}</h2>
-            You will receive your uniswap NFT in your wallet, please proceed to https://app.uniswap.org/pools to manage your position
+            {"your Uniswap position's NFT will be sent to your address, you can manage/withdraw your balance directly on Uniswap after"}
             <br/>
             <br/>
             <br/>
