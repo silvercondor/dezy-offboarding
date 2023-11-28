@@ -1,5 +1,6 @@
 import React from "react";
 import { useAccount, useContractRead, useContractWrite } from "wagmi";
+import CircularProgress from "@mui/material/CircularProgress";
 import { dezyS1NotionalLend } from "../../contracts";
 import { Box, Button, Grid } from "@mui/material";
 
@@ -43,7 +44,7 @@ export default function S1NotionalLend(props: PropTypes) {
       >
         <Grid item>{name}</Grid>
         <Grid item>
-          <Button
+          <Button            
             variant="contained"
             disabled={
               accountBalance.data?.[0].toString() !== "0" 
@@ -67,8 +68,9 @@ export default function S1NotionalLend(props: PropTypes) {
               });
             }}
           >
-            Withdraw
+            {!isLoading ? "Withdraw": <CircularProgress size={24} sx={{size:'1rem', margin:'0px 30px', color:'inherit'}}/>}
           </Button>
+          
         </Grid>
       </Grid>
     </Box>

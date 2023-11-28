@@ -7,7 +7,7 @@ import {
   useContractWrite,
 } from "wagmi";
 import { dezyS4, uniswapV3Pool } from "../contracts";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Grid, Typography } from "@mui/material";
 
 export function S4(props: any) {
   const poolAddress: Address = props.poolAddress;
@@ -88,7 +88,7 @@ export function S4(props: any) {
                 });
               }}
             >
-              Withdraw
+              {!isLoading ? "Withdraw": <CircularProgress size={24} sx={{size:'1rem', margin:'0px 30px', color:'inherit'}}/>}              
             </Button>
           </Grid>
         </Grid>
