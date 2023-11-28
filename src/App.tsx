@@ -42,13 +42,17 @@ export function App() {
 
       {isConnected && chain?.id==1?(
         <>
-{/*              
-          <h2>S1</h2>
-
-          <hr/> */}
           <h2>S4</h2>          
-          <S4 poolName="XSGD/USDC" poolAddress="0x6279653c28f138c8b31b8a0f6f8cd2c58e8c1705"/>
-          <S4 poolName="USDC/USDT" poolAddress="0x3416cF6C708Da44DB2624D63ea0AAef7113527C6"/>                    
+          <Grid container direction='column' spacing={3}>
+            <Grid item>
+            <S4 poolName="XSGD/USDC" poolAddress="0x6279653c28f138c8b31b8a0f6f8cd2c58e8c1705"/>
+
+            </Grid>
+            <Grid item>
+            <S4 poolName="USDC/USDT" poolAddress="0x3416cF6C708Da44DB2624D63ea0AAef7113527C6"/>                    
+
+            </Grid>
+          </Grid>
           <hr/>
         </>
       ):<NetworkSwitcher/>}
