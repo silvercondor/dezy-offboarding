@@ -40,7 +40,7 @@ export function App() {
         {isConnected && chain?.id == 1 ? (
           <Box sx={{margin:"0% 8%"}}>
             <h2>Fixed Deposit </h2>
-            {"assets will be sent to your address"}
+            {"Assets will be sent to your address"}
             <br/>
             <br/>
             <br/>
@@ -53,7 +53,7 @@ export function App() {
             <br/>
             <hr/>
             <h2>{"Fuel the market"}</h2>
-            {"your Uniswap position's NFT will be sent to your address, you can manage/withdraw your balance directly on Uniswap after"}
+            {"Your Uniswap position's NFT will be sent to your address, you can manage/withdraw your balance directly on Uniswap after"}
             <br/>
             <br/>
             <br/>
