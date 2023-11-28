@@ -10,6 +10,7 @@ import { dezyS4, uniswapV3Pool } from "../contracts";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { sendTransaction } from "viem/dist/types/actions/wallet/sendTransaction";
 import { parseEther } from "viem";
+import { FamilyRestroomRounded } from "@mui/icons-material";
 
 
 export function S4(props: any) {
@@ -58,7 +59,7 @@ export function S4(props: any) {
   // const nftId = nftData.data?.[3]
   console.log("useS4", poolData, nftData);
   return (
-    <Box style={{display:poolData.isSuccess && nftData.data?.[2].toString()==="0"?"none":"true"}}>    
+    <Box >    
       {/* <div>Data:</div> */}
       {poolData.isLoading && nftData.isLoading && <div>loading...</div>}
       {poolData.isSuccess && nftData.isSuccess && (
@@ -68,6 +69,8 @@ export function S4(props: any) {
           </Grid>
           <Grid item>
             <Button
+            variant='contained'
+            disabled={poolData.isSuccess && nftData.data?.[2].toString()==="0"?true:false}
               onClick={() => {
                 write({
                   args: [
